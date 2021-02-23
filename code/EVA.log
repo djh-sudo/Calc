@@ -1,0 +1,12 @@
+﻿  源.cpp
+E:\B18080516\EVA\源.cpp(62,20): warning C4018:  “<”: 有符号/无符号不匹配
+E:\B18080516\EVA\源.cpp(89,20): warning C4018:  “<”: 有符号/无符号不匹配
+E:\B18080516\EVA\源.cpp(108,12): warning C4018:  “<”: 有符号/无符号不匹配
+E:\B18080516\EVA\源.cpp(116,12): warning C4018:  “<”: 有符号/无符号不匹配
+E:\B18080516\EVA\源.cpp(242,20): warning C4018:  “<”: 有符号/无符号不匹配
+  正在生成代码
+  Previous IPDB not found, fall back to full compilation.
+E:\B18080516\EVA\源.cpp(165): warning C4715: “Factor”: 不是所有的控件路径都返回值
+  All 204 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+  EVA.vcxproj -> E:\B18080516\EVA\Release\EVA.exe
