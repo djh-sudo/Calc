@@ -9,7 +9,7 @@
 
 运行环境 Windows 10 Visual Studio 2019
 
-![](https://github.com/djh-sudo/Calc/blob/main/res.gif)
+![300](https://github.com/djh-sudo/Calc/blob/main/res.gif)
 
 * 大致原理
 
@@ -33,4 +33,37 @@
 
 需要把`tokens`变成语法树`Syntax Tree`,然后有一种递归的思想，去计算整个表达式的值
 例如 `3+5*2`,其语法树`Syntax Tree`为
+<div style="align: center">
+<img src="https://github.com/djh-sudo/Calc/blob/main/Syntax_Tree.png"></img>
+</div>
 
+我们一开始计算的是`N+M`,这里`N=3`,`M`需要进一步递归，发现`M=5*2`,当`M`计算完成之后，才能算出整个表达式的值。
+这里递归的思想可以用以下三段代码表示
+```C
+/*获取一个因子
+从上述的思想中，我们不能发现，最后的式子总能写成只有+和-构成的简易表达式
+因此，我们获取的因子可能已经是一个数N，也可以是一个复杂的表达式，如M
+*/
+int Factor() {
+	if (is_number(current_token)&&current_token!="") {  //数字
+		int r = stoi(current_token);                      //字符串转整型数字
+		current_token = Next_token();                     //当前token向前移动
+		return r;                                         //返回数字
+	}
+	if (current_token == "(") {                         //左括号,证明这是一个复杂式子
+		current_token = Next_token();                     //token前移动
+		int r = Exp1();                                   //计算表达式值
+		if (current_token != ")") {                       //计算完成后，token一定是右括号
+			SyntaxError(7);                                 //括号不匹配,抛出语法错误
+		}
+		current_token = Next_token();                    //当前token向前移动
+		return r;
+	}
+	else
+		SyntaxError(8);                                   //表达式有误，抛出语法错误
+}
+```
+To be Contnue...
+```C
+
+```
