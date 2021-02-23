@@ -63,14 +63,14 @@ int Factor() {
 		SyntaxError(8);                                   	//表达式有误，抛出语法错误
 }
 ```
-To be Contnue...
+低优先级运算符求值
 ```C
 int Exp1() {
 	int t1 = Exp2();				//优先计算
 	string oper = current_token;			//获取操作符
-	while (oper == "+" || oper == "-") {		
+	while (oper == "+" || oper == "-") {		//操作符只能是+/-
 		current_token = Next_token();		//获取下一个token
-		int t2 = Exp2();
+		int t2 = Exp2();			//获取右操作数
 		if (oper == "+") {
 			t1 += t2;
 		}
@@ -79,6 +79,37 @@ int Exp1() {
 		}
 		oper = current_token;
 	}
-	return t1;
+	return t1;					//返回计算结果
 }
 ```
+高优先级运算符求值
+```
+int Exp2() {
+	int t1 = Factor();				//获取左操作数
+	string oper = current_token;			//获取运算符
+	while (oper == "*" || oper == "/" || oper == "%") {
+		current_token = Next_token();
+		int t2 = Factor();			//获取右操作数
+		if (oper == "*") {
+			t1 *= t2;
+		}
+		if (oper == "/") {
+			if (t2 == 0) {
+				SyntaxError(9);		//除数为0，抛出异常
+				t2 = 1;
+			}
+			t1 /= t2;
+		}
+		if (oper == "%") {
+			if (t2 == 0) {
+				SyntaxError(9);		//除数为0，抛出异常
+				t2 = 1;
+			}
+			t1 %= t2;
+		}
+		oper = current_token;
+	}
+	return t1;					//返回结果
+}
+```
+调用的函数只需要调用低优先级求值函数`Exp1()`即可。如果有更多的优先级分层，则可以进一步去定义Exp3,...
