@@ -45,25 +45,40 @@
 因此，我们获取的因子可能已经是一个数N，也可以是一个复杂的表达式，如M
 */
 int Factor() {
-	if (is_number(current_token)&&current_token!="") {  //数字
-		int r = stoi(current_token);                      //字符串转整型数字
-		current_token = Next_token();                     //当前token向前移动
-		return r;                                         //返回数字
+	if (is_number(current_token)&&current_token!="") {  		//数字
+		int r = stoi(current_token);                      	//字符串转整型数字
+		current_token = Next_token();                     	//当前token向前移动
+		return r;                                         	//返回数字
 	}
-	if (current_token == "(") {                         //左括号,证明这是一个复杂式子
-		current_token = Next_token();                     //token前移动
-		int r = Exp1();                                   //计算表达式值
-		if (current_token != ")") {                       //计算完成后，token一定是右括号
+	if (current_token == "(") {                         		//左括号,证明这是一个复杂式子
+		current_token = Next_token();                     	//token前移动
+		int r = Exp1();                                   	//计算表达式值
+		if (current_token != ")") {                       	//计算完成后，token一定是右括号
 			SyntaxError(7);                                 //括号不匹配,抛出语法错误
 		}
-		current_token = Next_token();                    //当前token向前移动
+		current_token = Next_token();                    	//当前token向前移动
 		return r;
 	}
 	else
-		SyntaxError(8);                                   //表达式有误，抛出语法错误
+		SyntaxError(8);                                   	//表达式有误，抛出语法错误
 }
 ```
 To be Contnue...
 ```C
-
+int Exp1() {
+	int t1 = Exp2();				//优先计算
+	string oper = current_token;			//获取操作符
+	while (oper == "+" || oper == "-") {		
+		current_token = Next_token();		//获取下一个token
+		int t2 = Exp2();
+		if (oper == "+") {
+			t1 += t2;
+		}
+		else {
+			t1 -= t2;
+		}
+		oper = current_token;
+	}
+	return t1;
+}
 ```
