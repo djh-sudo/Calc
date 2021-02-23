@@ -83,7 +83,7 @@ int Exp1() {
 }
 ```
 高优先级运算符求值
-```
+```C
 int Exp2() {
 	int t1 = Factor();				//获取左操作数
 	string oper = current_token;			//获取运算符
